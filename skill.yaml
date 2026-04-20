@@ -1,0 +1,62 @@
+name: LuaSkills Demo Skill
+enable: true
+debug: false
+lancedb:
+  enable: false
+  log_level: warn
+  slow_log_enabled: false
+  slow_log_threshold_ms: 800
+sqlite:
+  enable: false
+  log_level: warn
+  slow_log_enabled: false
+  slow_log_threshold_ms: 800
+help:
+  main:
+    description: Main help node for the LuaSkills demo repository.
+    file: help/help.md
+  topics:
+    - name: demo-status
+      description: Explain the runtime diagnostics tool.
+      file: help/demo-status.md
+    - name: rg-dependency
+      description: Explain the no-op rg dependency and how it is resolved.
+      file: help/rg-dependency.md
+    - name: overflow-demo
+      description: Explain the paged output demo and local overflow template.
+      file: help/overflow-demo.md
+entries:
+  - name: demo-status
+    description: Return stable runtime diagnostics for install and lifecycle testing.
+    lua_entry: runtime/demo_status.lua
+    lua_module: demo_status
+    help: demo-status
+    parameters:
+      - name: name
+        type: string
+        description: Optional caller label included in the response.
+        required: false
+      - name: include_context
+        type: boolean
+        description: Include vulcan.context.request when true.
+        required: false
+  - name: rg-check
+    description: Report the expected local rg dependency path and run rg --version when it exists.
+    lua_entry: runtime/rg_check.lua
+    lua_module: rg_check
+    help: rg-dependency
+    parameters:
+      - name: run_version
+        type: boolean
+        description: Run rg --version when the local binary exists.
+        required: false
+  - name: overflow-demo
+    description: Emit paged markdown output and one skill-local overflow template hint.
+    lua_entry: runtime/overflow_demo.lua
+    lua_module: overflow_demo
+    help: overflow-demo
+    parameters:
+      - name: sections
+        type: integer
+        description: Number of repeated sections in the generated markdown.
+        required: false
