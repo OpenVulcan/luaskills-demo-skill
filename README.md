@@ -115,6 +115,38 @@ If you want to generate source metadata for non-GitHub channels, you can pass a 
 python .\scripts\package_skill.py --emit-source-yaml --base-url https://example.com/releases
 ```
 
+## Fork and publish flow
+
+Forking this repository is supported, but a forked repository name change alone does not rename the LuaSkill itself.
+
+If you want to publish your own skill based on this demo, use this recommended flow:
+
+1. Fork the repository.
+2. Optionally rename the GitHub repository.
+3. Rename the local repository root directory to the final skill id you want to publish.
+4. Update `skill.yaml`:
+   - set `name` to your display name
+   - set `version` to your first release version
+5. Update runtime, help, README, and resource files if they still mention `luaskills-demo-skill`.
+6. Run local validation:
+
+```powershell
+python .\scripts\validate_skill.py
+python .\scripts\package_skill.py
+```
+
+7. Tag and push your release:
+
+```powershell
+.\scripts\tag_release.ps1 0.1.0
+```
+
+Important notes:
+
+- The LuaSkill runtime identity comes from the packaged top-level directory name, not from the GitHub repository name alone.
+- If you only rename the GitHub repository but keep the packaged skill directory as `luaskills-demo-skill`, the installed `skill_id` still remains `luaskills-demo-skill`.
+- Always make sure the package root directory, release asset names, and documentation all match your final skill id before publishing.
+
 ## Release packaging
 
 After the tag is pushed, the release workflow produces:
