@@ -4,6 +4,19 @@ luac.out
 # Build artifacts
 dist/
 
+# Runtime-generated environment artifacts
+dependencies/
+state/
+databases/
+temp/
+skills/
+bin/tools/*
+!bin/tools/.gitkeep
+lua_packages/*
+!lua_packages/.gitkeep
+libs/*
+!libs/.gitkeep
+
 # luarocks build files
 *.src.rock
 *.zip
