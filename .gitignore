@@ -4,6 +4,9 @@ luac.out
 # Build artifacts
 dist/
 
+docs/plan/
+docs/completed/
+
 # Runtime-generated environment artifacts
 dependencies/
 state/

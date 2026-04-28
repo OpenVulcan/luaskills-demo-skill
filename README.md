@@ -2,6 +2,13 @@
 
 A complete demo LuaSkill repository at `LuaSkills/demo-skill` for testing package installation, GitHub release packaging, version updates, uninstall behavior, and one no-op `rg` dependency.
 
+## LuaSkill development manual
+
+For LuaSkill runtime APIs, package rules, and development conventions, see the official development manuals:
+
+- [Lua Skill Development Manual (English)](https://github.com/LuaSkills/luaskills/blob/main/docs/skill-development.md)
+- [Lua Skill 开发手册（中文）](https://github.com/LuaSkills/luaskills/blob/main/docs/zh-CN/skill-development.md)
+
 ## What this repository demonstrates
 
 - the strict `skill.yaml` package layout
@@ -115,27 +122,39 @@ If you want to generate source metadata with an explicit release asset URL, pass
 python .\scripts\package_skill.py --emit-source-yaml --base-url https://github.com/LuaSkills/demo-skill/releases/download/v0.1.3
 ```
 
-## Fork and publish flow
+## Use this demo as your own skill repository
 
-Forking this repository is supported, but a forked repository name change alone does not rename the LuaSkill itself.
+This repository is intended to be forked as the starting point for a real LuaSkill package.
 
-If you want to publish your own skill based on this demo, use this recommended flow:
+Recommended first-time setup:
 
-1. Fork the repository.
-2. Optionally rename the GitHub repository.
-3. Rename the local repository root directory to the final skill id you want to publish.
-4. Update `skill.yaml`:
+1. Fork this repository from GitHub.
+2. In the fork form, set `Repository name` to your final skill id.
+   - The repository name should match `^[a-z]([a-z0-9-]*[a-z0-9])?$`.
+   - Use lowercase letters, numbers, and single hyphen-separated words, such as `my-skill` or `demo-tools`.
+3. Set `Description` to a short description of your own skill.
+4. Click `Create fork`.
+5. Open the forked repository settings and choose `Leave fork network` so the new repository becomes an independent skill repository.
+6. Clone your own repository:
+
+```powershell
+git clone https://github.com/<your-org-or-user>/<your-skill-id>.git
+cd <your-skill-id>
+```
+
+7. Start replacing the demo content with your own skill implementation.
+8. Update `skill.yaml`:
    - set `name` to your display name
    - set `version` to your first release version
-5. Update runtime, help, README, and resource files if they still mention `demo-skill` or `LuaSkills/demo-skill`.
-6. Run local validation:
+9. Update runtime, help, README, and resource files if they still mention `demo-skill` or `LuaSkills/demo-skill`.
+10. Run local validation:
 
 ```powershell
 python .\scripts\validate_skill.py
 python .\scripts\package_skill.py
 ```
 
-7. Tag and push your release:
+11. Tag and push your release:
 
 ```powershell
 .\scripts\tag_release.ps1 0.1.3
